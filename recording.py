@@ -2,6 +2,8 @@ import pyaudio
 import wave
 import threading
 
+import transcribe
+
 # Global variables
 p = pyaudio.PyAudio()  # Initialize PyAudio once
 stream = None
@@ -60,6 +62,8 @@ def stop_recording():
     global stop
     stop = True
     print(stop)
+    transcript = transcribe.getTranscript()
+    print(f"transcript: {transcript}")
     print(levenshtein("The tree is red", "the tree is red"))
     
 def levenshtein(s1, s2):
