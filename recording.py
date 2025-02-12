@@ -2,26 +2,27 @@ import pyaudio
 import wave
 import threading
 
+# Global variables
+p = pyaudio.PyAudio()  # Initialize PyAudio once
 stream = None
-p = pyaudio.PyAudio()  # Create an interface to PortAudio
 stop = False
 t1 = None
 
 def start_recording():
+    global t1
     t1 = threading.Thread(target=record)
     t1.start()
 
 def record():
-    global stop
+    global stop, stream
     stop = False
-    chunk = 1024  # Record in chunks of 1024 samples
-    sample_format = pyaudio.paInt16  # 16 bits per sample
+    chunk = 1024  # Buffer size
+    sample_format = pyaudio.paInt16  # 16-bit audio
     channels = 1
-    fs = 44100  # Record at 44100 samples per second
-    seconds = 3
+    fs = 44100  # Sample rate
     filename = "output.wav"
 
-    print('Recording')
+    print("Recording...")
 
     stream = p.open(format=sample_format,
                     channels=channels,
@@ -29,35 +30,33 @@ def record():
                     frames_per_buffer=chunk,
                     input=True)
 
-    frames = []  # Initialize array to store frames
+    frames = []
 
-    # Store data in chunks for 3 seconds
-    while(not stop):
-        print(len(frames))
+    while not stop:
         try:
-            data = stream.read(chunk)
+            data = stream.read(chunk, exception_on_overflow=False)
             frames.append(data)
-        except:
-            print("Stream was closed")
+        except Exception as e:
+            print("Stream error:", e)
+            break
 
-    # Stop and close the stream 
-    stream.stop_stream()
-    stream.close()
-    # Terminate the PortAudio interface
-    p.terminate()
+    # Close stream
+    if stream is not None:
+        stream.stop_stream()
+        stream.close()
+        stream = None  # Reset stream
 
-    print('Finished recording')
+    print("Finished recording")
 
-    # Save the recorded data as a WAV file
-    wf = wave.open(filename, 'wb')
+    # Save as WAV file
+    wf = wave.open(filename, "wb")
     wf.setnchannels(channels)
     wf.setsampwidth(p.get_sample_size(sample_format))
     wf.setframerate(fs)
-    wf.writeframes(b''.join(frames))
+    wf.writeframes(b"".join(frames))
     wf.close()
 
-
 def stop_recording():
-    global stop 
+    global stop
     stop = True
-    print(stop)
+    print("Stopping recording...")
