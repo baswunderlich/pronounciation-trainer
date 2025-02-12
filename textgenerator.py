@@ -7,8 +7,8 @@ import math
 symbols = [".", ",", "-", "!", "?", "_", "\"", "'"]
 
 
-def get_new_text() -> (str, str):
-    return get_random_text_chunk()
+def get_new_text(mode) -> (str, str):
+    return get_random_text_chunk(mode)
 
 def get_random_text_chunk(mode = "default") -> (str, str):
     mypath = "texts/" + mode

@@ -8,7 +8,7 @@ Main_window = Tk()
 Main_window.geometry("220x100")
 
 def new_text():
-    (text, cleaned_text) = get_new_text()
+    (text, cleaned_text) = get_new_text(mode_var.get())
     text_var.set(text)
 
 
@@ -36,11 +36,17 @@ status_label = Label(Main_window,
 text_label = Label(Main_window, 
 				textvariable = text_var)
 
+choices = ['default', 'poetic']
+mode_var = StringVar(Main_window)
+mode_var.set('default')
+
+text_mode = OptionMenu(Main_window, mode_var, *choices)
 
 record_btn.pack()
 stop_btn.pack()
 new_text_btn.pack()
 status_label.pack()
 text_label.pack()
+text_mode.pack();
 
 Main_window.mainloop()
