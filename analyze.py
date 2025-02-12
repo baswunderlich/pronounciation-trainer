@@ -33,10 +33,9 @@ else:
 # Time axis correction
 times = np.linspace(0, t_audio, num=len(l_channel))
 
-# --- Create a single figure with 2 subplots (2 rows, 1 column) ---
 fig, axes = plt.subplots(2, 1, figsize=(9, 6))  # 2 rows, 1 column
 
-# --- Plot Waveform in First Subplot ---
+# Plot Waveform 
 axes[0].plot(times, l_channel, label="Left Channel", color="blue")
 if r_channel is not None:
     axes[0].plot(times, r_channel, label="Right Channel", color="red", alpha=0.7)
@@ -46,7 +45,7 @@ axes[0].set_xlabel('Time (s)')
 axes[0].set_xlim(0, t_audio)
 axes[0].legend()
 
-# --- Plot Spectrogram in Second Subplot ---
+# Plot Spectrogram
 axes[1].specgram(l_channel, Fs=sample_freq, vmin=-20, vmax=50)
 axes[1].set_title('Spectrogram (Left Channel)')
 axes[1].set_ylabel('Frequency (Hz)')
@@ -54,6 +53,6 @@ axes[1].set_xlabel('Time (s)')
 axes[1].set_xlim(0, t_audio)
 fig.colorbar(plt.cm.ScalarMappable(), ax=axes[1], label="Intensity (dB)")  # Colorbar for spectrogram
 
-# --- Adjust layout and show figure ---
+# Adjust layout and show figure
 plt.tight_layout()
 plt.show()
