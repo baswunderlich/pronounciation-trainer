@@ -71,6 +71,8 @@ def stop_recording():
 def calc_score(text_original, text_recorded) -> float:
     clean_original = textgenerator.clean_text(text_original)
     clean_transcript = textgenerator.clean_text(text_recorded)
+    print("clean original:", clean_original)
+    print("clean transcript:", clean_transcript)
     result = levenshtein(clean_original, clean_transcript)
     score = (len(clean_original.split(" "))-result)/len(clean_original.split(" "))
     print("Score:", score)
