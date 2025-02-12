@@ -31,4 +31,4 @@ def get_random_text_chunk(mode = "default") -> (str, str):
 def clean_text(text) -> str:
     for symbol in symbols:
         text = text.replace(symbol, " ")
-    return text
+    return text.lower()
