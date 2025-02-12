@@ -4,10 +4,11 @@ from os.path import isfile, join
 import random
 import math
 
-symbols = [".", ",", "-", "!", "?", "_", "\"", "'"]
+symbols = [".", ",", "-", "!", "?", "_", "\"", "'", "\t", "\n"]
 current_text = ""
 
 def get_new_text(mode) -> str:
+    global current_text
     current_text = get_random_text_chunk(mode)
     return current_text
 

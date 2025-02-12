@@ -51,7 +51,6 @@ status_var = StringVar()
 
 
 text_var.set("---")
-new_text()
 
 status_var.set("")
 
@@ -178,6 +177,7 @@ text_mode.pack(pady=5);
 
 
 # Run the GUI
+new_text()
 
 Main_window.mainloop()
 
