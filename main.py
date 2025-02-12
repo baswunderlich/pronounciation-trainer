@@ -19,7 +19,7 @@ Main_window.geometry("800x800")
 Main_window.title("Audio Recorder")
 
 def new_text():
-    (text, cleaned_text) = get_new_text(mode_var.get())
+    text = get_new_text(mode_var.get())
     text_var.set(text)
 
 
@@ -51,6 +51,8 @@ status_var = StringVar()
 
 
 text_var.set("---")
+new_text()
+
 status_var.set("")
 
 

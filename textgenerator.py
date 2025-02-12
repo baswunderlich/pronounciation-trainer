@@ -5,10 +5,11 @@ import random
 import math
 
 symbols = [".", ",", "-", "!", "?", "_", "\"", "'"]
+current_text = ""
 
-
-def get_new_text(mode) -> (str, str):
-    return get_random_text_chunk(mode)
+def get_new_text(mode) -> str:
+    current_text = get_random_text_chunk(mode)
+    return current_text
 
 def get_random_text_chunk(mode = "default") -> (str, str):
     mypath = "texts/" + mode
@@ -25,7 +26,7 @@ def get_random_text_chunk(mode = "default") -> (str, str):
         text = full_text[sentence_indexes[starting_sentence]+1: sentence_indexes[starting_sentence+3]]
         
         #
-        return (text, clean_text(text))
+        return text
 
 def clean_text(text) -> str:
     for symbol in symbols:

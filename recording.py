@@ -1,7 +1,7 @@
 import pyaudio
 import wave
 import threading
-
+import textgenerator
 import transcribe
 
 # Global variables
@@ -58,10 +58,11 @@ def record():
     wf.writeframes(b"".join(frames))
     wf.close()
 
-def stop_recording(text_original):
+def stop_recording():
     global stop
     stop = True
-    print(stop)
+    
+    text_original = textgenerator.current_text
     transcript = transcribe.getTranscript()
     print(f"transcript: {transcript}")
     print(levenshtein("The tree is red", "the tree is red"))
