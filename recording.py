@@ -2,6 +2,8 @@ import pyaudio
 import wave
 import threading
 
+import transcribe
+
 # Global variables
 p = pyaudio.PyAudio()  # Initialize PyAudio once
 stream = None
@@ -56,15 +58,18 @@ def record():
     wf.writeframes(b"".join(frames))
     wf.close()
 
-def stop_recording():
+def stop_recording(text_original):
     global stop
     stop = True
     print(stop)
+    transcript = transcribe.getTranscript()
+    print(f"transcript: {transcript}")
+    print(levenshtein("The tree is red", "the tree is red"))
     
-    result = levenshtein(text_original, text_failure)
+    result = levenshtein(text_original, transcript)
     print(result)
     print(len(text_original.split(" ")))
-    print("Score:", calc_score(text_original, text_failure))
+    print("Score:", calc_score(text_original, transcript))
     
 
 def calc_score(text_original, text_recorded) -> float:
