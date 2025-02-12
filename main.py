@@ -178,6 +178,5 @@ text_mode.pack(pady=5);
 
 # Run the GUI
 new_text()
-
 Main_window.mainloop()
 
