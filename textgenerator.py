@@ -4,7 +4,7 @@ from os.path import isfile, join
 import random
 import math
 
-symbols = [".", ",", "-", "!", "?", "_", "\"", "'", "\t", "\n"]
+symbols = [".", ",", "-", "!", "?", "_", "\"", "'", "\t", "\n", "“"]
 current_text = ""
 
 def get_new_text(mode) -> str:

@@ -22,7 +22,9 @@ def new_text():
     text = get_new_text(mode_var.get())
     text_var.set(text)
 
-
+def stop():
+    score = stop_recording()
+    score_var.set(score)
 
 new_text_btn = Button(Main_window, 
 
@@ -42,7 +44,7 @@ stop_btn = Button(Main_window,
 
 			text = "Stop", 
 
-			command = stop_recording)
+			command = stop)
 
 
 text_var = StringVar()
@@ -66,6 +68,9 @@ text_label = Label(Main_window,
 
 
 choices = ['default', 'poetic']
+
+score_var = StringVar(Main_window)
+score_var.set("Score: 0.0")
 
 mode_var = StringVar(Main_window)
 
@@ -100,7 +105,7 @@ def start():
 
 
 def stop():
-    stop_recording()
+    score_var.set("Score: " + str(stop_recording()))
 
     status.set("Stopped")
 
@@ -158,8 +163,11 @@ status_label = Label(Main_window, textvariable=status, font=("Arial", 12))
 
 text_label = Label(Main_window, textvariable=text_var, font=("Arial", 12))
 
+score_label = Label(Main_window, textvariable=score_var, font=("Arial", 12))
+
 
 # Add widgets to the window
+score_label.pack(pady = 5)
 
 status_label.pack(pady=5)
 
@@ -173,8 +181,7 @@ show_plot_btn.pack(pady=5)
 
 text_label.pack(pady=5)
 
-text_mode.pack(pady=5);
-
+text_mode.pack(pady=5)
 
 # Run the GUI
 new_text()

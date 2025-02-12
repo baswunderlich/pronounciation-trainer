@@ -58,14 +58,14 @@ def record():
     wf.writeframes(b"".join(frames))
     wf.close()
 
-def stop_recording():
+def stop_recording() -> float:
     global stop
     stop = True
     
     text_original = textgenerator.current_text
     transcript = transcribe.getTranscript()
     print(f"transcript: {transcript}")
-    calc_score(text_original, transcript)
+    return calc_score(text_original, transcript)
     
 
 def calc_score(text_original, text_recorded) -> float:
