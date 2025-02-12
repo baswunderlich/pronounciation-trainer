@@ -11,8 +11,8 @@ def start_recording():
     t1 = threading.Thread(target=record)
     t1.start()
 
-
 def record():
+    global stop
     stop = False
     chunk = 1024  # Record in chunks of 1024 samples
     sample_format = pyaudio.paInt16  # 16 bits per sample
@@ -33,6 +33,7 @@ def record():
 
     # Store data in chunks for 3 seconds
     while(not stop):
+        print(len(frames))
         try:
             data = stream.read(chunk)
             frames.append(data)
@@ -57,4 +58,6 @@ def record():
 
 
 def stop_recording():
+    global stop 
     stop = True
+    print(stop)
