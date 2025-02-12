@@ -65,16 +65,14 @@ def stop_recording():
     text_original = textgenerator.current_text
     transcript = transcribe.getTranscript()
     print(f"transcript: {transcript}")
-    print(levenshtein("The tree is red", "the tree is red"))
-    
-    result = levenshtein(text_original, transcript)
-    print(result)
-    print(len(text_original.split(" ")))
-    print("Score:", calc_score(text_original, transcript))
+    calc_score(text_original, transcript)
     
 
 def calc_score(text_original, text_recorded) -> float:
-    score = (len(text_original.split(" "))-result)/len(text_original.split(" "))
+    clean_original = textgenerator.clean_text(text_original)
+    clean_transcript = textgenerator.clean_text(text_recorded)
+    result = levenshtein(clean_original, clean_transcript)
+    score = (len(clean_original.split(" "))-result)/len(clean_original.split(" "))
     print("Score:", score)
     return score
 
