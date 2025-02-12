@@ -14,13 +14,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 Main_window = Tk()
 
-Main_window.geometry("500x500")
+Main_window.geometry("800x800")
 
 Main_window.title("Audio Recorder")
-
-
-Main_window.geometry("220x100")
-
 
 def new_text():
     (text, cleaned_text) = get_new_text(mode_var.get())
