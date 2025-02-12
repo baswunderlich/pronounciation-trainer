@@ -3,20 +3,23 @@ import wave
 import threading
 
 stream = None
+p = pyaudio.PyAudio()  # Create an interface to PortAudio
+stop = False
+t1 = None
 
 def start_recording():
     t1 = threading.Thread(target=record)
     t1.start()
 
+
 def record():
+    stop = False
     chunk = 1024  # Record in chunks of 1024 samples
     sample_format = pyaudio.paInt16  # 16 bits per sample
     channels = 1
     fs = 44100  # Record at 44100 samples per second
     seconds = 3
     filename = "output.wav"
-
-    p = pyaudio.PyAudio()  # Create an interface to PortAudio
 
     print('Recording')
 
@@ -29,15 +32,13 @@ def record():
     frames = []  # Initialize array to store frames
 
     # Store data in chunks for 3 seconds
-    while(True):
+    while(not stop):
         try:
             data = stream.read(chunk)
             frames.append(data)
         except:
             print("Stream was closed")
 
-
-def stop_recording():
     # Stop and close the stream 
     stream.stop_stream()
     stream.close()
@@ -53,3 +54,7 @@ def stop_recording():
     wf.setframerate(fs)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+
+def stop_recording():
+    stop = True
