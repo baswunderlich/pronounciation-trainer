@@ -97,5 +97,5 @@ def levenshtein(s1, s2):
             current_row.append(min(insertions, deletions, substitutions))
         previous_row = current_row
     
-    print("Stopping recording...")
+    # print("Stopping recording...")
     return previous_row[-1]
