@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile, join
 import random
 import math
+import re
 
 symbols = [".", ",", "-", "!", "?", "_", "\"", "'", "\t", "\n", "“"]
 current_text = ""
@@ -26,10 +27,12 @@ def get_random_text_chunk(mode = "default") -> (str, str):
 
         text = full_text[sentence_indexes[starting_sentence]+1: sentence_indexes[starting_sentence+3]]
         
-        #
         return text
 
 def clean_text(text) -> str:
     for symbol in symbols:
         text = text.replace(symbol, " ")
+
+    text = text.replace("’", "")  # Remove apostrophes, like in couldn’t
+    text = re.sub(' +', ' ', text)  # Replace multiple spaces with single spaces
     return text.lower()
