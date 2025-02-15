@@ -14,7 +14,6 @@ def remove_punctuation(text):
 def add_noise_to_audio(audio_file, noise_level=0.05):
     """
     Loads an audio file, adds white noise to it, and saves the noisy audio.
-    
     Parameters:
         audio_file (str): Path to the original audio file.
         noise_level (float): Scaling factor for the noise amplitude.
