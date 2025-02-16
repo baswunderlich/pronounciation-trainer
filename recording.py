@@ -3,6 +3,7 @@ import wave
 import threading
 import textgenerator
 import transcribe
+import Levenshtein
 
 # Global variables
 p = pyaudio.PyAudio()  # Initialize PyAudio once
@@ -73,29 +74,8 @@ def calc_score(text_original, text_recorded) -> float:
     clean_transcript = textgenerator.clean_text(text_recorded)
     print("clean original:", clean_original)
     print("clean transcript:", clean_transcript)
-    result = levenshtein(clean_original, clean_transcript)
-    score = (len(clean_original.split(" "))-result)/len(clean_original.split(" "))
+    score = Levenshtein.ratio(clean_original, clean_transcript)
     print("Score:", score)
     return score
 
 
-def levenshtein(s1, s2):
-    if len(s1) < len(s2):
-        return levenshtein(s2, s1)
-
-    # len(s1) >= len(s2)
-    if len(s2) == 0:
-        return len(s1)
-
-    previous_row = range(len(s2.split(" ")) + 1)
-    for i, c1 in enumerate(s1.split(" ")):
-        current_row = [i + 1]
-        for j, c2 in enumerate(s2.split(" ")):
-            insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
-            deletions = current_row[j] + 1       # than s2
-            substitutions = previous_row[j] + (c1 != c2)
-            current_row.append(min(insertions, deletions, substitutions))
-        previous_row = current_row
-    
-    # print("Stopping recording...")
-    return previous_row[-1]
