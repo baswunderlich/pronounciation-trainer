@@ -96,8 +96,8 @@ notebook.pack(expand=1, fill="both")
 Label(tab1, textvariable=status_var, font=("Arial", 12)).pack(pady=5)
 Button(tab1, text="Record", command=start, width=15, height=2, bg="green", fg="white").pack(pady=5)
 Button(tab1, text="Stop", command=stop, width=15, height=2, bg="red", fg="white").pack(pady=5)
-Button(tab1, text="Update Text", command=new_text, width=15, height=2).pack(pady=5)
-Label(tab1, textvariable=text_var, font=("Arial", 12), wraplength=700).pack(fill="both", expand=True, padx=10)
+Button(tab1, text="Different Text", command=new_text, width=15, height=2).pack(pady=5)
+Label(tab1, textvariable=text_var, font=("Arial", 12), wraplength=700).pack(fill="both",pady=7, padx=10)
 OptionMenu(tab1, mode_var, *choices).pack(pady=5)
 
 # Tab 2: Plot
