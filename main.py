@@ -65,7 +65,7 @@ def update_comparison():
     score_var.set(f"Levenshtein Distance: {distance} | Similarity: {similarity:.2f}")
     comparison_text.config(state=NORMAL)
     comparison_text.delete("1.0", END)
-    comparison_text.insert(END, "Original Text:" + original_text + "\n\n")
+    comparison_text.insert(END, "Original Text:\n" + original_text + "\n\n")
     print(diff)
     for word in diff:
         if word.startswith('-'):
