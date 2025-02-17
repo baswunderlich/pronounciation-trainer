@@ -7,6 +7,7 @@ import analyze
 import Levenshtein
 import difflib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import re
 
 # Create main window
 Main_window = Tk()
@@ -51,15 +52,13 @@ def update_comparison():
     comparison_text.delete("1.0", END)
     comparison_text.insert(END, "Original Text:\n" + original_text + "\n\n")
     
-    last_op = None
+    print(diff)
     for word in diff:
+        if re.match(r'^\?\s*[\+\-]\n$', word):
+            continue
+
         op = word[0]
         text = word[2:]
-        
-        if op == '-' and last_op == '-':
-            continue  # Skip consecutive deletions to avoid duplicates
-        if op == '+' and last_op == '+':
-            continue  # Skip consecutive additions
         
         if op == '-':
             comparison_text.insert(END, text + " ", "error")
@@ -67,8 +66,6 @@ def update_comparison():
             comparison_text.insert(END, text + " ", "addition")
         else:
             comparison_text.insert(END, text + " ", "correct")
-        
-        last_op = op
     
     comparison_text.config(state=DISABLED)
 
@@ -107,7 +104,7 @@ Label(tab1, textvariable=status_var, font=("Arial", 12)).pack(pady=5)
 Button(tab1, text="Record", command=start, width=15, height=2, bg="green", fg="white").pack(pady=5)
 Button(tab1, text="Stop", command=stop, width=15, height=2, bg="red", fg="white").pack(pady=5)
 Button(tab1, text="Different Text", command=new_text, width=15, height=2).pack(pady=5)
-Label(tab1, textvariable=text_var, font=("Arial", 12), wraplength=700).pack(fill="both",pady=7, padx=10)
+Label(tab1, textvariable=text_var, font=("Arial", 12), wraplength=800).pack(fill="both",pady=7, padx=10)
 OptionMenu(tab1, mode_var, *choices).pack(pady=5)
 
 # Tab 3: Comparison
