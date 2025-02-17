@@ -62,7 +62,6 @@ def generate_plot(wav_file):
     )
     axes[1].set_title('Spectrogram (Left Channel)')
     axes[1].set_ylabel('Frequency (Hz)')
-    axes[1].set_ylim(0, 12000)  # Force y-axis to show up to 12 kHz
     axes[1].set_xlabel('Time (s)')
     axes[1].set_xlim(0, t_audio)
 
@@ -74,8 +73,3 @@ def generate_plot(wav_file):
 
     # Return the figure object (e.g., for saving or further manipulation)
     return fig
-
-# Example usage:
-if __name__ == "__main__":
-    fig = generate_plot("example.wav")  # <-- Replace with your own .wav filename
-    plt.show()  # Show the figure window
